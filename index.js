@@ -16,13 +16,14 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
 
+app.use(express.static('app'));
 
 app.get("/", function (req, res, next) {
   res.status(200).send("Welcome to the Ka-ching Application");
 });
 //app.get("/home", appController.getHomePage);
 
-app.post('/authenticate', function (req, res) {
+app.post('/api/authenticate', function (req, res) {
   if (req.body !== undefined) {
     usersDB.findOne({username: req.body.login, password: req.body.password}, function (err, profile) {
       if (err || profile === undefined) {

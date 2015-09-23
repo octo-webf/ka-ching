@@ -9,7 +9,20 @@
     </div>
   </div>
 </div>
-<a ng-click="addFriend()">Ajouter un ami</a>
+<div>
+  <a ng-click="transferHistory()">Voir l'historique des transferts</a>
+  <table ng-if="showTransferHistory" class="table">
+    <th ng-click="orderTransfers(transfers, false, true, false)">Amount</th>
+    <th ng-click="orderTransfers(transfers, false, false, true)">To</th>
+    <tr ng-repeat="transfer in transfers">
+      <td>{{transfer.amount}}</td>
+      <td>{{transfer.recipient.user.name.first + ' ' + transfer.recipient.user.name.last}}</td>
+    </tr>
+  </table>
+</div>
+<div>
+  <a ng-click="addFriend()">Ajouter un ami</a>
+</div>
 <div ng-show="showModal">
   <div class="modal">
     <div class="modal-dialog">
@@ -51,13 +64,13 @@
 <div class="row">
   <div class="col-md-12">
     <div id="user-friends">
-      <h3>My friends</h3>
+      <h3>Mes amis</h3>
       <table class="table table-condensed">
         <thead>
         <tr>
           <th></th>
-          <th>Name</th>
-          <th>Send</th>
+          <th>Nom</th>
+          <th>Transferer</th>
         </tr>
         </thead>
         <tbody>

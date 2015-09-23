@@ -1,6 +1,2 @@
-{"username":"john.doe","account":{"balance":"42"},"_id":"KPZ96Er4FnKfSj4X"}
-{"username":"john.doe","account":{"balance":32},"_id":"KPZ96Er4FnKfSj4X"}
-{"username":"john.doe","account":{"balance":22},"_id":"KPZ96Er4FnKfSj4X"}
-{"username":"john.doe","account":{"balance":12},"_id":"KPZ96Er4FnKfSj4X"}
-{"username":"john.doe","account":{"balance":2},"_id":"KPZ96Er4FnKfSj4X"}
 {"username":"john.doe","account":{"balance":-8},"_id":"KPZ96Er4FnKfSj4X"}
+{"username":"john.doe","account":{"balance":-108},"_id":"KPZ96Er4FnKfSj4X"}

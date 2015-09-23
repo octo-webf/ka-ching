@@ -3,6 +3,7 @@ var app = angular.module("ka-ching");
 app.controller("HomeCtrl", function ($scope, $rootScope, $http, $window) {
   $scope.username = $window.sessionStorage.username;
   $scope.showModal = false;
+  $scope.showTransferHistory = false;
 
   $http({url: "http://localhost:3000/api/friends", method: "GET"}).then(function (response) {
     $scope.friends = response.data;
@@ -49,11 +50,40 @@ app.controller("HomeCtrl", function ($scope, $rootScope, $http, $window) {
       url: "http://localhost:3000/api/transfers",
       method: "PUT",
       data: {transfer: {recipient: friend, amount: friend.transferedAmount}}
-    }).then(function() {
+    }).then(function () {
       $http({url: "http://localhost:3000/api/account", method: "GET"}).then(function (response) {
         $scope.balance = response.data.balance;
       });
     });
   };
 
+  $scope.transferHistory = function () {
+    $scope.showTransferHistory = !$scope.showTransferHistory;
+    $http({url: "http://localhost:3000/api/transfers", method: "GET"}).then(function (response) {
+      $scope.transfers = response.data;
+    }, function () {
+      $scope.error = "Impossible de retrouver l'historique des transferts";
+    });
+  };
+
+  $scope.orderTransfers = function (transfers, orderByDateDescending, orderByAmountDescending, groupedByRecipient) {
+    //reset order
+    transfers = _.sortByOrder(transfers, ["id"], ["desc"]);
+    var iteratees = ["date"];
+    var orders = [];
+    if (orderByDateDescending) {
+      orders = ["desc"];
+    } else {
+      orders = ["asc"];
+    }
+    if (orderByAmountDescending) {
+      iteratees.unshift("amount");
+      orders.unshift("desc");
+    }
+    if (groupedByRecipient) {
+      iteratees.unshift("recipient");
+      orders.unshift("asc");
+    }
+    $scope.transfers = _.sortByOrder(transfers, iteratees, orders);
+  };
 });

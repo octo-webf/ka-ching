@@ -1,0 +1,26 @@
+<div id="login" ng-controller="LoginCtrl">
+  <form name="loginForm" novalidate ng-submit="submit(credentials)">
+    <div class="form-group">
+      <label>
+        Login
+      </label>
+      <input
+        name="login"
+        class="form-control"
+        type="text" ng-model="credentials.login"
+        required/>
+      <label>
+        Password
+      </label>
+      <input
+        name="password"
+        class="form-control"
+        type="password" ng-model="credentials.password"
+        required/>
+    </div>
+    <div>{{ error }}</div>
+    <div class="text-center">
+      <button class="btn btn-lg btn-default" type="submit">Submit</button>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,124 @@
+{
+  "posts": [
+    {
+      "id": 1,
+      "title": "json-server",
+      "author": "typicode"
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  },
+  "authenticate": {
+    "login": "cjdivjd",
+    "password": "cjvdfijvid"
+  },
+  "friends": [
+    {
+      "user": {
+        "gender": "male",
+        "name": {
+          "title": "mr",
+          "first": "ricardo",
+          "last": "romero"
+        },
+        "location": {
+          "street": "7865 calle de bravo murillo",
+          "city": "santiago de compostela",
+          "state": "galicia",
+          "zip": 19147
+        },
+        "email": "ricardo.romero@example.com",
+        "username": "purpleelephant991",
+        "password": "casino",
+        "salt": "B5IGfHCC",
+        "md5": "9413aa0ad45c840b147b74e0f320c7b9",
+        "sha1": "fd80ac8ddcde4599e8b3f5d9e275f83e817a97ed",
+        "sha256": "25d5d6169ed6c91095482d0a6eee667c6e460474b5298bfc908a001b7b32c5a2",
+        "registered": 973336192,
+        "dob": 52441916,
+        "phone": "971-560-113",
+        "cell": "674-004-467",
+        "DNI": "31757380-C",
+        "picture": {
+          "large": "https://randomuser.me/api/portraits/men/78.jpg",
+          "medium": "https://randomuser.me/api/portraits/med/men/78.jpg",
+          "thumbnail": "https://randomuser.me/api/portraits/thumb/men/78.jpg"
+        }
+      }
+    },
+    {
+      "user": {
+        "gender": "female",
+        "name": {
+          "title": "miss",
+          "first": "marina",
+          "last": "cabrera"
+        },
+        "location": {
+          "street": "3282 calle nebrija",
+          "city": "móstoles",
+          "state": "asturias",
+          "zip": 71765
+        },
+        "email": "marina.cabrera@example.com",
+        "username": "brownswan853",
+        "password": "anna",
+        "salt": "a6zhh78p",
+        "md5": "a61f0b98d6e4a02617be7fe54bc56406",
+        "sha1": "970ff3d032623827b388f64f00d76b2b1d6eefd0",
+        "sha256": "95b89a7460aee56893a03481e5397eaaed114687feb23515201db2c46e7a1441",
+        "registered": 958424536,
+        "dob": 1420478046,
+        "phone": "902-478-907",
+        "cell": "638-392-263",
+        "DNI": "71755055-Y",
+        "picture": {
+          "large": "https://randomuser.me/api/portraits/women/3.jpg",
+          "medium": "https://randomuser.me/api/portraits/med/women/3.jpg",
+          "thumbnail": "https://randomuser.me/api/portraits/thumb/women/3.jpg"
+        }
+      }
+    },
+    {
+      "user": {
+        "gender": "male",
+        "name": {
+          "title": "mr",
+          "first": "isaac",
+          "last": "castro"
+        },
+        "location": {
+          "street": "3541 calle de tetuán",
+          "city": "córdoba",
+          "state": "castilla la mancha",
+          "zip": 43959
+        },
+        "email": "isaac.castro@example.com",
+        "username": "redelephant523",
+        "password": "texas",
+        "salt": "ORe7izTr",
+        "md5": "a929f2312110ff8aff7ba31568838ac5",
+        "sha1": "bc46f5aeda3d37aba90ab22bc3128583f5085c71",
+        "sha256": "2a0b2877ad3f64c4423966c0cf2e4f7511fee071c1a479144c094f380534500b",
+        "registered": 1324384630,
+        "dob": 585896357,
+        "phone": "921-916-508",
+        "cell": "613-671-725",
+        "DNI": "43975081-P",
+        "picture": {
+          "large": "https://randomuser.me/api/portraits/men/52.jpg",
+          "medium": "https://randomuser.me/api/portraits/med/men/52.jpg",
+          "thumbnail": "https://randomuser.me/api/portraits/thumb/men/52.jpg"
+        }
+      }
+    }
+  ]
+}

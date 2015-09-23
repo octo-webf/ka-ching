@@ -1,0 +1,6 @@
+{
+  "/api/": "/",
+  "/api/authenticate": "/authenticate",
+  "/api/profile": "/profile",
+  "/api/friends": "/friends"
+}

@@ -1,0 +1,30 @@
+<div class="row">
+  <div class="col-md-12">
+    <div id="user-balance">
+      <h1>Bonjour {{username}}</h1>
+      <h2>Votre Solde</h2>
+      <h3>{{balance | currency}}</h3>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <div id="user-friends">
+      <h3>My friends</h3>
+      <table class="table table-condensed">
+        <thead>
+        <tr>
+          <th></th>
+          <th>Name</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="friend in friends">
+          <td><img src="{{friend.user.picture.thumbnail}}"</td>
+          <td>{{friend.user.name.first}} {{friend.user.name.last}}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

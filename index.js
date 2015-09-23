@@ -1,6 +1,5 @@
 var express = require("express");
 var Datastore = require("nedb");
-var _ = require("lodash");
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var expressJwt = require('express-jwt');
@@ -36,7 +35,7 @@ app.post('/authenticate', function (req, res) {
 });
 
 app.get("/api/friends", expressJwt({secret: _SECRET}), function (req, res, next) {
-  friendsDB.find({username: "john.doe"}, function (err, docs) {
+  friendsDB.find({username: req.user.username}, function (err, docs) {
     if (err) {
       return callback(err);
     }
@@ -44,12 +43,12 @@ app.get("/api/friends", expressJwt({secret: _SECRET}), function (req, res, next)
       res.status(404).send();
       return;
     }
-    res.json([docs[0].friends]);
+    res.json(docs[0].friends);
   })
 });
 
 app.get('/api/account', expressJwt({secret: _SECRET}), function(req, res, next){
-  accountsDB.find({username: "john.doe"}, function (err, docs) {
+  accountsDB.find({username: req.user.username}, function (err, docs) {
     if (err) {
       return callback(err);
     }
@@ -57,7 +56,20 @@ app.get('/api/account', expressJwt({secret: _SECRET}), function(req, res, next){
       res.status(404).send();
       return;
     }
-    res.json([docs[0].account]);
+    res.json(docs[0].account);
+  })
+});
+
+app.get('/api/user', expressJwt({secret: _SECRET}), function(req, res, next){
+  usersDB.find({username: req.user.username}, function (err, docs) {
+    if (err) {
+      return callback(err);
+    }
+    if (docs === undefined || docs.length === 0) {
+      res.status(404).send();
+      return;
+    }
+    res.json(docs[0]);
   })
 });
 

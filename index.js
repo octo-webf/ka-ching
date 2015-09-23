@@ -19,6 +19,10 @@ app.use(cookieParser());
 
 app.use(express.static('app'));
 
+app.get("/", function (req, res, next) {
+  res.status(200).send("Welcome to the Ka-ching Application");
+});
+
 app.post('/api/authenticate', function (req, res) {
   if (req.body !== undefined) {
     usersDB.findOne({username: req.body.login, password: req.body.password}, function (err, profile) {
@@ -44,7 +48,7 @@ app.get("/api/friends", expressJwt({secret: _SECRET}), function (req, res, next)
   })
 });
 
-app.get('/api/account', expressJwt({secret: _SECRET}), function(req, res, next){
+app.get('/api/account', expressJwt({secret: _SECRET}), function (req, res, next) {
   accountsDB.find({username: req.user.username}, function (err, docs) {
     if (err) {
       return callback(err);
@@ -57,7 +61,7 @@ app.get('/api/account', expressJwt({secret: _SECRET}), function(req, res, next){
   })
 });
 
-app.get('/api/user', expressJwt({secret: _SECRET}), function(req, res, next){
+app.get('/api/user', expressJwt({secret: _SECRET}), function (req, res, next) {
   usersDB.find({username: req.user.username}, function (err, docs) {
     if (err) {
       return callback(err);

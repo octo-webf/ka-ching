@@ -5,6 +5,7 @@ var cookieParser = require('cookie-parser');
 var expressJwt = require('express-jwt');
 var _SECRET = "secret_a_changer";
 var jwt = require('jsonwebtoken');
+var coverage = require('istanbul-middleware');
 
 var accountsDB = new Datastore({filename: ".//database/accounts.db", autoload: true});
 var friendsDB = new Datastore({filename: ".//database/friends.db", autoload: true});
@@ -18,6 +19,13 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
 
 app.use(express.static('app'));
+
+// add the coverage handler
+//if (isCoverageEnabled) {
+//enable coverage endpoints under /coverage
+app.use('/coverage', coverage.createHandler());
+//}
+
 
 app.get("/", function (req, res, next) {
   res.status(200).send("Welcome to the Ka-ching Application");
@@ -74,26 +82,26 @@ app.get('/api/user', expressJwt({secret: _SECRET}), function (req, res, next) {
   })
 });
 
-app.put('/api/friends', expressJwt({secret: _SECRET}), function(req, res, next){
+app.put('/api/friends', expressJwt({secret: _SECRET}), function (req, res, next) {
   friendsDB.update({username: req.user.username}, {$push: {friends: JSON.parse(req.body.friends)}}, {upsert: true}, function (err, numReplaced, newDoc) {
     if (err) {
       res.status(400).send();
       return;
     }
-    friendsDB.find({username: req.user.username}, function(err, docs){
+    friendsDB.find({username: req.user.username}, function (err, docs) {
       res.json(docs[0].friends);
     })
   })
 });
 
-app.get('/api/transfers', expressJwt({secret: _SECRET}), function(req, res, next){
-  transfersDB.find({username: req.user.username}, function(err, docs){
-      res.json(docs[0].transfers);
+app.get('/api/transfers', expressJwt({secret: _SECRET}), function (req, res, next) {
+  transfersDB.find({username: req.user.username}, function (err, docs) {
+    res.json(docs[0].transfers);
   });
 });
 
-app.get('/api/transfers/:friendId', expressJwt({secret: _SECRET}), function(req, res, next){
-  transfersDB.find({username: req.user.username}, function(err, docs){
+app.get('/api/transfers/:friendId', expressJwt({secret: _SECRET}), function (req, res, next) {
+  transfersDB.find({username: req.user.username}, function (err, docs) {
     //TODO filtrer pour ne renvoyer que les virements faits à cet ami
     res.json(docs[0].transfers);
   });

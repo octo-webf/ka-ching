@@ -92,12 +92,19 @@ app.get('/api/transfers', expressJwt({secret: _SECRET}), function(req, res, next
   });
 });
 
-app.put('/api/transfers', expressJwt({secret: _SECRET}), function(req, res, next){
-    transfersDB.update({username: req.user.username}, {$push: {transfers: JSON.parse(req.body.transfer)}}, {upsert: true}, function (err, numReplaced, newDoc){
-      transfersDB.find({username: req.user.username}, function(err, docs){
-        res.json(docs[0].transfers);
-      });
+app.put('/api/transfers', expressJwt({secret: _SECRET}), function (req, res, next) {
+  transfersDB.update({username: req.user.username}, {$push: {transfers: JSON.parse(req.body.transfer)}}, {upsert: true}, function (err, numReplaced, newDoc) {
+    // mise à jour du solde du compte de l'utilisateur courant
+    accountsDB.find({username: req.user.username}, function (err, docs) {
+      var balance = docs[0].account.balance - JSON.parse(req.body.transfer).amount;
+      accountsDB.update({username: req.user.username}, {$set: {"account.balance": balance}}, {}, function (err, numReplaced, newDoc) {
+        //TODO mettre à jour le solde et la liste des virements du créditeur
+        transfersDB.find({username: req.user.username}, function (err, docs) {
+          res.json(docs[0].transfers);
+        });
+      })
     });
+  });
 });
 
 app.listen(3000, function () {

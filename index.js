@@ -8,6 +8,7 @@ var jwt = require('jsonwebtoken');
 
 var accountsDB = new Datastore({filename: ".//database/accounts.db", autoload: true});
 var friendsDB = new Datastore({filename: ".//database/friends.db", autoload: true});
+var transfersDB = new Datastore({filename: ".//database/transfers.db", autoload: true});
 var usersDB = new Datastore({filename: ".//database/users.db", autoload: true});
 
 var app = express();
@@ -17,11 +18,6 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
 
 app.use(express.static('app'));
-
-app.get("/", function (req, res, next) {
-  res.status(200).send("Welcome to the Ka-ching Application");
-});
-//app.get("/home", appController.getHomePage);
 
 app.post('/api/authenticate', function (req, res) {
   if (req.body !== undefined) {
@@ -75,7 +71,7 @@ app.get('/api/user', expressJwt({secret: _SECRET}), function(req, res, next){
 });
 
 app.put('/api/friends', expressJwt({secret: _SECRET}), function(req, res, next){
-  friendsDB.update({username: req.user.username}, {$push: {friends: req.params.friends}}, {upsert: true}, function (err, numReplaced, newDoc) {
+  friendsDB.update({username: req.user.username}, {$push: {friends: JSON.parse(req.body.friends)}}, {upsert: true}, function (err, numReplaced, newDoc) {
     if (err) {
       res.status(400).send();
       return;
@@ -84,6 +80,20 @@ app.put('/api/friends', expressJwt({secret: _SECRET}), function(req, res, next){
       res.json(docs[0].friends);
     })
   })
+});
+
+app.get('/api/transfers', expressJwt({secret: _SECRET}), function(req, res, next){
+  transfersDB.find({username: req.user.username}, function(err, docs){
+      res.json(docs[0].transfers);
+  });
+});
+
+app.put('/api/transfers', expressJwt({secret: _SECRET}), function(req, res, next){
+    transfersDB.update({username: req.user.username}, {$push: {transfers: JSON.parse(req.body.transfer)}}, {upsert: true}, function (err, numReplaced, newDoc){
+      transfersDB.find({username: req.user.username}, function(err, docs){
+        res.json(docs[0].transfers);
+      });
+    });
 });
 
 app.listen(3000, function () {

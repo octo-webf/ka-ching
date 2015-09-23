@@ -3,7 +3,9 @@ app.controller("LoginCtrl", function($scope, $rootScope, $http, $window, $locati
   $scope.submit = function (credentials) {
     return $http({url: "http://localhost:3000/api/authenticate", method: "POST", data: credentials}).then(function(response) {
       $window.sessionStorage.token = response.data.token;
-      $rootScope.username = response.data.username;
+      $window.sessionStorage.user = {
+        username: response.data.username
+      };
       $location.url("/home");
     }, function () {
       delete $window.sessionStorage.token;

@@ -2,11 +2,51 @@
   <div class="col-md-12">
     <div id="user-balance">
       <h1>Bonjour {{username}}</h1>
+
       <h2>Votre Solde</h2>
+
       <h3>{{balance | currency}}</h3>
     </div>
   </div>
 </div>
+<a ng-click="addFriend()">Ajouter un ami</a>
+<div ng-show="showModal">
+  <div class="modal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="addFriend()"><span
+            aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">Ajouter un ami</h4>
+        </div>
+        <div class="modal-body">
+          <form ng-submit="submit(friend)">
+            <div class="input-group input-group-lg">
+              <span class="input-group-addon">First Name</span>
+              <input type="text" class="form-control" placeholder="First Name"  ng-model="friend.user.name.first">
+            </div>
+            <div class="input-group input-group-lg">
+              <span class="input-group-addon">Last Name</span>
+              <input type="text" class="form-control" placeholder="Last Name" ng-model="friend.user.name.last">
+            </div>
+            <div class="input-group input-group-lg">
+              <span class="input-group-addon">Account Number</span>
+              <input type="text" class="form-control" placeholder="Account Number" ng-model="friend.user.account.number">
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="addFriend()">Close</button>
+          <button type="button" ng-click="submit(friend)" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+  <!-- /.modal -->
+</div>
+
 <div class="row">
   <div class="col-md-12">
     <div id="user-friends">

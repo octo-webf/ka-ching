@@ -19,9 +19,9 @@ app.use(cookieParser());
 
 app.use(express.static('app'));
 
-app.get("/", function (req, res, next) {
-  res.status(200).send("Welcome to the Ka-ching Application");
-});
+/*app.get("/", function (req, res, next) {
+ res.status(200).send("Welcome to the Ka-ching Application");
+ });*/
 
 app.post('/api/authenticate', function (req, res) {
   if (req.body !== undefined) {
@@ -73,27 +73,27 @@ app.get('/api/user', expressJwt({secret: _SECRET}), function (req, res, next) {
     res.json(docs[0]);
   })
 });
-
-app.put('/api/friends', expressJwt({secret: _SECRET}), function(req, res, next){
-  friendsDB.update({username: req.user.username}, {$push: {friends: JSON.parse(req.body.friends)}}, {upsert: true}, function (err, numReplaced, newDoc) {
+;
+app.put('/api/friends', expressJwt({secret: _SECRET}), function (req, res, next) {
+  friendsDB.update({username: req.user.username}, {$push: {friends: {$each: req.body.friends}}}, {upsert: true}, function (err, numReplaced, newDoc) {
     if (err) {
       res.status(400).send();
       return;
     }
-    friendsDB.find({username: req.user.username}, function(err, docs){
+    friendsDB.find({username: req.user.username}, function (err, docs) {
       res.json(docs[0].friends);
     })
   })
 });
 
-app.get('/api/transfers', expressJwt({secret: _SECRET}), function(req, res, next){
-  transfersDB.find({username: req.user.username}, function(err, docs){
-      res.json(docs[0].transfers);
+app.get('/api/transfers', expressJwt({secret: _SECRET}), function (req, res, next) {
+  transfersDB.find({username: req.user.username}, function (err, docs) {
+    res.json(docs[0].transfers);
   });
 });
 
-app.get('/api/transfers/:friendId', expressJwt({secret: _SECRET}), function(req, res, next){
-  transfersDB.find({username: req.user.username}, function(err, docs){
+app.get('/api/transfers/:friendId', expressJwt({secret: _SECRET}), function (req, res, next) {
+  transfersDB.find({username: req.user.username}, function (err, docs) {
     //TODO filtrer pour ne renvoyer que les virements faits à cet ami
     res.json(docs[0].transfers);
   });

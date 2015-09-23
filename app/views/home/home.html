@@ -23,7 +23,7 @@
           <form ng-submit="submit(friend)">
             <div class="input-group input-group-lg">
               <span class="input-group-addon">First Name</span>
-              <input type="text" class="form-control" placeholder="First Name"  ng-model="friend.user.name.first">
+              <input type="text" class="form-control" placeholder="First Name" ng-model="friend.user.name.first">
             </div>
             <div class="input-group input-group-lg">
               <span class="input-group-addon">Last Name</span>
@@ -31,7 +31,8 @@
             </div>
             <div class="input-group input-group-lg">
               <span class="input-group-addon">Account Number</span>
-              <input type="text" class="form-control" placeholder="Account Number" ng-model="friend.user.account.number">
+              <input type="text" class="form-control" placeholder="Account Number"
+                     ng-model="friend.user.account.number">
             </div>
           </form>
         </div>
@@ -56,12 +57,17 @@
         <tr>
           <th></th>
           <th>Name</th>
+          <th>Send</th>
         </tr>
         </thead>
         <tbody>
         <tr ng-repeat="friend in friends">
-          <td><img src="{{friend.user.picture.thumbnail}}"</td>
+          <td><img src="{{friend.user.picture.thumbnail}}"></td>
           <td>{{friend.user.name.first}} {{friend.user.name.last}}</td>
+          <td>
+            <input type="text" class="input-sm" placeholder="$" ng-model="friend.transferedAmount"/>
+            <button class="btn btn-group-sm" type="button" ng-click="transferMoney(friend)">Transfer it!</button>
+          </td>
         </tr>
         </tbody>
       </table>

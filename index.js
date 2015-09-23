@@ -101,10 +101,10 @@ app.get('/api/transfers/:friendId', expressJwt({secret: _SECRET}), function (req
 
 
 app.put('/api/transfers', expressJwt({secret: _SECRET}), function (req, res, next) {
-  transfersDB.update({username: req.user.username}, {$push: {transfers: JSON.parse(req.body.transfer)}}, {upsert: true}, function (err, numReplaced, newDoc) {
+  transfersDB.update({username: req.user.username}, {$push: {transfers: req.body.transfer}}, {upsert: true}, function (err, numReplaced, newDoc) {
     // mise à jour du solde du compte de l'utilisateur courant
     accountsDB.find({username: req.user.username}, function (err, docs) {
-      var balance = docs[0].account.balance - JSON.parse(req.body.transfer).amount;
+      var balance = docs[0].account.balance - req.body.transfer.amount;
       accountsDB.update({username: req.user.username}, {$set: {"account.balance": balance}}, {}, function (err, numReplaced, newDoc) {
         //TODO mettre à jour le solde et la liste des virements du créditeur
         transfersDB.find({username: req.user.username}, function (err, docs) {

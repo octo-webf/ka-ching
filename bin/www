@@ -1,0 +1,2 @@
+# must be run on project root path
+PORT=3000 KACHING_DATABASE_PATH='./database' node index &

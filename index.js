@@ -92,6 +92,14 @@ app.get('/api/transfers', expressJwt({secret: _SECRET}), function(req, res, next
   });
 });
 
+app.get('/api/transfers/:friendId', expressJwt({secret: _SECRET}), function(req, res, next){
+  transfersDB.find({username: req.user.username}, function(err, docs){
+    //TODO filtrer pour ne renvoyer que les virements faits à cet ami
+    res.json(docs[0].transfers);
+  });
+});
+
+
 app.put('/api/transfers', expressJwt({secret: _SECRET}), function (req, res, next) {
   transfersDB.update({username: req.user.username}, {$push: {transfers: JSON.parse(req.body.transfer)}}, {upsert: true}, function (err, numReplaced, newDoc) {
     // mise à jour du solde du compte de l'utilisateur courant

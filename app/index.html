@@ -2,7 +2,7 @@
 <head>
   <link rel="stylesheet" type="text/css" href="vendors/bootstrap/dist/css/bootstrap.css">
 </head>
-<body ng-app="ka-ching">
+<body ng-app="ka-ching" ng-controller="MainCtrl">
 <nav class="navbar navbar-default">
   <div class="container-fluid">
     <div class="navbar-header">
@@ -15,11 +15,12 @@
       </button>
       <a class="navbar-brand" href="#">Ka-Ching!</a>
     </div>
+    <div class="nav navbar-nav navbar-right navbar-right">
+      <a ng-click="logout()" ng-if="username">Déconnexion<i class="glyphicon glyphicon-off"></i></a>
+    </div>
   </div>
 </nav>
-<div ng-controller="MainCtrl" class="container" ng-view>
-  test
-</div>
+<div class="container" ng-view></div>
 <script src="vendors/angular/angular.js"></script>
 <script src="vendors/angular-route/angular-route.js"></script>
 <script src="scripts/app.js"></script>

@@ -48,7 +48,7 @@ app.get("/api/friends", expressJwt({secret: _SECRET}), function (req, res, next)
   })
 });
 
-app.get('/api/account', expressJwt({secret: _SECRET}), function(req, res, next){
+app.get('/api/account', expressJwt({secret: _SECRET}), function (req, res, next) {
   accountsDB.find({username: req.user.username}, function (err, docs) {
     if (err) {
       return callback(err);
@@ -61,7 +61,7 @@ app.get('/api/account', expressJwt({secret: _SECRET}), function(req, res, next){
   })
 });
 
-app.get('/api/user', expressJwt({secret: _SECRET}), function(req, res, next){
+app.get('/api/user', expressJwt({secret: _SECRET}), function (req, res, next) {
   usersDB.find({username: req.user.username}, function (err, docs) {
     if (err) {
       return callback(err);
@@ -74,13 +74,13 @@ app.get('/api/user', expressJwt({secret: _SECRET}), function(req, res, next){
   })
 });
 
-app.put('/api/friends', expressJwt({secret: _SECRET}), function(req, res, next){
+app.put('/api/friends', expressJwt({secret: _SECRET}), function (req, res, next) {
   friendsDB.update({username: req.user.username}, {$push: {friends: req.params.friends}}, {upsert: true}, function (err, numReplaced, newDoc) {
     if (err) {
       res.status(400).send();
       return;
     }
-    friendsDB.find({username: req.user.username}, function(err, docs){
+    friendsDB.find({username: req.user.username}, function (err, docs) {
       res.json(docs[0].friends);
     })
   })

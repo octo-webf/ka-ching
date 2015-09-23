@@ -25,7 +25,7 @@ app.get("/", function (req, res, next) {
 app.post('/authenticate', function (req, res) {
   if (req.body !== undefined) {
     usersDB.findOne({username: req.body.login, password: req.body.password}, function (err, profile) {
-      if (err || _.isEmpty(profile)) {
+      if (err || profile === undefined) {
         res.send(401, 'Wrong user or password');
       }
       var token = jwt.sign(profile, _SECRET, {expiresInMinutes: 60 * 5});

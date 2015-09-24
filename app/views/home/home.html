@@ -1,7 +1,7 @@
 <div class="row">
   <div class="col-md-12">
     <div id="user-balance">
-      <h1>Bonjour {{username}}</h1>
+      <h1>Bonjour {{nom}}</h1>
 
       <h2>Votre Solde</h2>
 
@@ -23,7 +23,7 @@
 <div>
   <a ng-click="addFriend()">Ajouter un ami</a>
 </div>
-<div ng-show="showModal">
+<div ng-show="modal">
   <div class="modal">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -74,12 +74,12 @@
         </tr>
         </thead>
         <tbody>
-        <tr ng-repeat="friend in friends">
-          <td><img src="{{friend.user.picture.thumbnail}}"></td>
-          <td>{{friend.user.name.first}} {{friend.user.name.last}}</td>
+        <tr ng-repeat="ami in mes_amis">
+          <td><img src="{{ami.user.picture.thumbnail}}"></td>
+          <td>{{ami.user.name.first}} {{ami.user.name.last}}</td>
           <td>
-            <input type="text" class="input-sm" placeholder="$" ng-model="friend.transferedAmount"/>
-            <button class="btn btn-group-sm" type="button" ng-click="transferMoney(friend)">Transfer it!</button>
+            <input type="text" class="input-sm" placeholder="$" ng-model="ami.transferedAmount"/>
+            <button class="btn btn-group-sm" type="button" ng-click="transferMoney(ami)">Transfer it!</button>
           </td>
         </tr>
         </tbody>

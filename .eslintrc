@@ -36,7 +36,6 @@
     "no-path-concat": 2,
     "no-process-exit": 1,
     "no-proto": 1,
-    "no-reserved-keys": 2,
     "no-self-compare": 2,
     "no-shadow": 1,
     "no-throw-literal": 2,
@@ -53,10 +52,10 @@
     "space-after-keywords": [2, "always"],
     "space-before-blocks": [2, "always"],
     "space-before-function-paren": [2, {"anonymous": "always", "named": "never"}],
-    "space-in-brackets": [2, "never"],
+    "object-curly-spacing": [2, "never"],
     "space-in-parens": [2, "never"],
     "space-unary-ops": [2, {"words": true, "nonwords": false}],
-    "spaced-line-comment": [1, "always"],
+    "spaced-comment": [1, "always"],
     "strict": [2, "never"]
   }
 }

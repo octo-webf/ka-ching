@@ -86,4 +86,19 @@ app.controller("HomeCtrl", function ($scope, $rootScope, $http, $window) {
     }
     $scope.transfers = _.sortByOrder(transfers, iteratees, orders);
   };
+
+  $scope.toggleFriendTransfers = function (friend) {
+    friend.showTransfers = !Boolean(friend.showTransfers);
+    if (friend.showTransfers) {
+      $http({url: "http://localhost:3000/api/transfers/" + friend.user.username, method: "GET"}).then(function (response) {
+        friend.transfers = response.data;
+      }, function () {
+        $scope.error = "Impossible de retrouver l'historique des transferts de cet ami";
+      });
+    }
+  };
+  /*$scope.sortFriendTransfer(friend, byDate, byAmount) {
+
+
+   }*/
 });

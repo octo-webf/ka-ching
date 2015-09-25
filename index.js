@@ -5,6 +5,7 @@ var cookieParser = require('cookie-parser');
 var expressJwt = require('express-jwt');
 var _SECRET = "secret_a_changer";
 var jwt = require('jsonwebtoken');
+var _ = require('lodash');
 
 var accountsDB = new Datastore({filename: ".//database/accounts.db", autoload: true});
 var friendsDB = new Datastore({filename: ".//database/friends.db", autoload: true});
@@ -73,7 +74,20 @@ app.get('/api/user', expressJwt({secret: _SECRET}), function (req, res, next) {
     res.json(docs[0]);
   })
 });
-;
+
+app.get('/api/friends/:username', expressJwt({secret: _SECRET}), function (req, res, next) {
+  friendsDB.find({username: req.params.username}, function (err, docs) {
+    if (err) {
+      return callback(err);
+    }
+    if (docs === undefined || docs.length === 0) {
+      res.status(404).send();
+      return;
+    }
+    res.json(docs[0]);
+  })
+});
+
 app.put('/api/friends', expressJwt({secret: _SECRET}), function (req, res, next) {
   friendsDB.update({username: req.user.username}, {$push: {friends: {$each: req.body.friends}}}, {upsert: true}, function (err, numReplaced, newDoc) {
     if (err) {
@@ -88,15 +102,54 @@ app.put('/api/friends', expressJwt({secret: _SECRET}), function (req, res, next)
 
 app.get('/api/transfers', expressJwt({secret: _SECRET}), function (req, res, next) {
   transfersDB.find({username: req.user.username}, function (err, docs) {
-    res.json(docs[0].transfers);
+    var transfers = [];
+    _.each(docs[0].transfers, function (transfer) {
+      if (!_.isEmpty(transfer.recipient.user)) {
+        transfers.push(transfer)
+      }
+    });
+    res.json(transfers);
   });
 });
 
-app.get('/api/transfers/:friendId', expressJwt({secret: _SECRET}), function (req, res, next) {
-  transfersDB.find({username: req.user.username}, function (err, docs) {
-    //TODO filtrer pour ne renvoyer que les virements faits à cet ami
-    res.json(docs[0].transfers);
-  });
+app.get('/api/transfers/:friendUsername', expressJwt({secret: _SECRET}), function (req, res, next) {
+  friendsDB.find({
+      username: req.user.username
+    },
+    function (err, docs) {
+      if (err) {
+        return callback(err);
+      }
+      if (docs === undefined || docs.length === 0) {
+        res.status(404).send();
+        return;
+      }
+      var friend = _.find(docs[0].friends, function (friend) {
+        return friend.user.username === req.params.friendUsername;
+      });
+      transfersDB.find({
+        username: req.user.username
+      }, function (err, docs) {
+        if (err) {
+          return callback(err);
+        }
+        if (docs === undefined || docs.length === 0) {
+          res.status(404).send();
+          return;
+        }
+        var transfers = [];
+        _.each(docs[0].transfers, function (transfer) {
+          if (!_.isEmpty(transfer.recipient.user)) {
+            if (transfer.recipient.user.name.first === friend.user.name.first &&
+              transfer.recipient.user.name.last === friend.user.name.last) {
+              transfers.push(transfer)
+            }
+          }
+        });
+        res.json(transfers);
+      });
+    }
+  )
 });
 
 

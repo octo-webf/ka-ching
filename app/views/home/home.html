@@ -70,16 +70,24 @@
         <tr>
           <th></th>
           <th>Nom</th>
-          <th>Transferer</th>
+          <th></th>
         </tr>
         </thead>
         <tbody>
         <tr ng-repeat="friend in friends">
-          <td><img src="{{friend.user.picture.thumbnail}}"></td>
-          <td>{{friend.user.name.first}} {{friend.user.name.last}}</td>
-          <td>
+          <td ng-click="toggleFriendTransfers(friend)"><img src="{{friend.user.picture.thumbnail}}"></td>
+          <td ng-hide="friend.showTransfers">{{friend.user.name.first}} {{friend.user.name.last}}</td>
+          <td ng-hide="friend.showTransfers">
             <input type="text" class="input-sm" placeholder="$" ng-model="friend.transferedAmount"/>
             <button class="btn btn-group-sm" type="button" ng-click="transferMoney(friend)">Transfer it!</button>
+          </td>
+          <td ng-show="friend.showTransfers">
+            <ul>
+              <li ng-repeat="transfer in friend.transfers">{{ transfer.amount }} transférés le {{ transfer.date }}</li>
+            </ul>
+          </td>
+          <td ng-show="friend.showTransfers">
+
           </td>
         </tr>
         </tbody>

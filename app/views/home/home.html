@@ -12,11 +12,13 @@
 <div>
   <a ng-click="transferHistory()">Voir l'historique des transferts</a>
   <table ng-if="showTransferHistory" class="table">
-    <th ng-click="orderTransfers(transfers, false, true, false)">Amount</th>
-    <th ng-click="orderTransfers(transfers, false, false, true)">To</th>
+    <th ng-click="orderTransfers(transfers, false, true, false)">Montant</th>
+    <th ng-click="orderTransfers(transfers, false, false, true)">A</th>
+    <th ng-click="orderTransfers(transfers, true, false, false)">Le</th>
     <tr ng-repeat="transfer in transfers">
-      <td>{{transfer.amount}}</td>
+      <td>{{transfer.amount}} €</td>
       <td>{{transfer.recipient.user.name.first + ' ' + transfer.recipient.user.name.last}}</td>
+      <td>{{transfer.date | date:'yyyy-MM-dd'}}</td>
     </tr>
   </table>
 </div>
@@ -83,7 +85,7 @@
           </td>
           <td ng-show="friend.showTransfers">
             <ul>
-              <li ng-repeat="transfer in friend.transfers">{{ transfer.amount }} transférés le {{ transfer.date }}</li>
+              <li ng-repeat="transfer in friend.transfers">{{ transfer.amount }} € transférés le {{ transfer.date | date:'yyyy-MM-dd'}}</li>
             </ul>
           </td>
           <td ng-show="friend.showTransfers">

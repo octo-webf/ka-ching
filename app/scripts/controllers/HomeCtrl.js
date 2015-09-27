@@ -49,10 +49,11 @@ app.controller("HomeCtrl", function ($scope, $rootScope, $http, $window) {
     $http({
       url: "http://localhost:3000/api/transfers",
       method: "PUT",
-      data: {transfer: {recipient: friend, amount: friend.transferedAmount}}
+      data: {transfer: {recipient: friend, amount: friend.transferedAmount, date: new Date()}}
     }).then(function () {
       $http({url: "http://localhost:3000/api/account", method: "GET"}).then(function (response) {
         $scope.balance = response.data.balance;
+        friend.transferedAmount = undefined;
       });
     });
   };

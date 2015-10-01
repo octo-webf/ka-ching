@@ -13,6 +13,7 @@ module.exports = function (config) {
       "app/vendors/lodash/lodash.js",
       "app/scripts/app.js",
       "app/scripts/controllers/*.js",
+      "app/scripts/services/*.js",
       {pattern: "test/**/*.js", watched: true, included: true, served: true}
     ],
 

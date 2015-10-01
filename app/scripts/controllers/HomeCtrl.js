@@ -1,6 +1,6 @@
 var app = angular.module("ka-ching");
 
-app.controller("HomeCtrl", function ($scope, $rootScope, $http, $window) {
+app.controller("HomeCtrl", function ($scope, $rootScope, $http, $window, AccountService) {
   $scope.username = $window.sessionStorage.username;
   $scope.showModal = false;
   $scope.showTransferHistory = false;
@@ -13,13 +13,9 @@ app.controller("HomeCtrl", function ($scope, $rootScope, $http, $window) {
       $scope.error = "Impossible de retrouver vos amis";
     });
 
-  $http({
-    url: "http://localhost:3000/api/account",
-    method: "GET"
-  }).then(
-    function (response) {
-      $scope.balance = response.data.balance;
-    });
+  AccountService.getAccount(function (response) {
+    $scope.balance = response.data.balance;
+  });
 
   $scope.addFriend = function () {
     if ($scope.showModal == true) {
@@ -63,14 +59,9 @@ app.controller("HomeCtrl", function ($scope, $rootScope, $http, $window) {
         }
       }
     }).then(
-      function () {
-        $http({
-          url: "http://localhost:3000/api/account",
-          method: "GET"
-        }).then(function (response) {
-          $scope.balance = response.data.balance;
-        });
-      });
+      AccountService.getAccount(function (response) {
+        $scope.balance = response.data.balance;
+      }));
   };
 
   $scope.transferHistory = function () {

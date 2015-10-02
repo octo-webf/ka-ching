@@ -3,7 +3,7 @@
 Formatage de code: branche code-formatting
 - Checkout branche code-formatting
 - Présenter js-beautify
-- commade: npm install js-beautify -g
+- commande: npm install js-beautify -g
 - commande: js-beautify -f file -r
 - montrer la différence
 - présenter eslint
@@ -16,6 +16,9 @@ Formatage de code: branche code-formatting
 Duplication du code:
 js-inspect
 
+Tests d'intégration sur l'API : branche api-integration-tests
+- npm install pour installer les outils : supertest, chai, should
+- npm test pour les lancer
 
 Ne pas réinventer la roue: branche do-not-reinvent-wheel
 - Présenter la fonctionnalité sur l'application

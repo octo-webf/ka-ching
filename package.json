@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "./bin/www && KACHING_DATABASE_PATH='./database' mocha -R spec ./test/**/*"
+    "test": "./bin/www && KACHING_DATABASE_PATH='./database' mocha -R spec ./test/**/* && pkill node"
   },
   "repository": {
     "type": "git",

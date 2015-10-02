@@ -13,7 +13,7 @@ describe("API: FriendsApi", function() {
           .set("Authorization", 'Bearer ' + TOKEN)
           .expect(200)
           .end(function(err, res) {
-            expect(res.body.length).to.equal(100);
+            expect(res.body.length).to.equal(103);
             done(err)
           });
       });
